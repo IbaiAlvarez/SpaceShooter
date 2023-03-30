@@ -164,6 +164,8 @@ public class Pantaila extends JPanel implements Runnable{
 			enemies.get(i).setX(enemies.get(i).getX()-enemies.get(i).getA());
 		}
 		removeBala();
+		removeEnemy();
+		calculateCollision();
 	}	
 	
 	
@@ -184,12 +186,31 @@ public class Pantaila extends JPanel implements Runnable{
 		}
 	}
 	
+	public void removeEnemy() {
+		for(int i=0;i<enemies.size();i++) {
+			if(enemies.get(i).getX()<=0-(enemies.get(i).getZabalera()*2)) {
+				enemies.remove(i);
+			}
+		}
+	}
+	
 	public void createEnemy() {
 		if(enemyCooldown==0) {
 			enemy = new Enemy(this,sarrera);
-			enemyCooldown = 160;
+			enemyCooldown = 560;
 			enemy.sortu();
 			enemies.add(enemy);
+		}
+	}
+	
+	public void calculateCollision() {
+		for(int i=0;i<balak.size();i++) {
+			for(int j=0;j<enemies.size();j++) {
+				if(balak.get(i).getX() < enemies.get(j).getX() + enemies.get(j).getZabalera() && balak.get(i).getX() + balak.get(i).getZabalera() > enemies.get(j).getX() && balak.get(i).getY() < enemies.get(j).getY() + enemies.get(i).getAltuera() && balak.get(i).getAltuera() + balak.get(i).getY() > enemies.get(j).getY()) {
+					enemies.remove(j);
+					balak.remove(i);
+				}
+			}
 		}
 	}
 }

@@ -46,7 +46,6 @@ public class Enemy extends Object{
 		super.setX(540);
 		super.setY(ThreadLocalRandom.current().nextInt(0, 335 + 1));		
 		super.setA(0.5);
-		System.out.println("X: "+super.getX()+" Y: "+super.getY());
 		try { 
 			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/Eclipse/Jokua/wasp.png"))); 
 		}catch(IOException e) {
