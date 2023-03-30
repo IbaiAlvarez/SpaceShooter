@@ -45,7 +45,7 @@ public class Enemy extends Object{
 	public void sortu() {
 		super.setX(540);
 		super.setY(ThreadLocalRandom.current().nextInt(0, 335 + 1));		
-		super.setA(0.5);
+		super.setA(0.75);
 		try { 
 			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/Eclipse/Jokua/wasp.png"))); 
 		}catch(IOException e) {

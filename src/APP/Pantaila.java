@@ -3,13 +3,8 @@ package APP;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Objetuak.Bullet;
@@ -42,6 +37,7 @@ public class Pantaila extends JPanel implements Runnable{
 	ArrayList<Bullet> balak = new ArrayList<>();
 	ArrayList<Enemy> enemies = new ArrayList<>();
 	int enemyCooldown = 0;
+	int enemiesToClear = 25;
 
 	public Pantaila(){
 		this.setPreferredSize(new Dimension(pantailaAltuera, pantailaZabalera));
@@ -98,7 +94,6 @@ public class Pantaila extends JPanel implements Runnable{
 				Thread.sleep( 5 );
 			} */
 			catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -195,9 +190,9 @@ public class Pantaila extends JPanel implements Runnable{
 	}
 	
 	public void createEnemy() {
-		if(enemyCooldown==0) {
+		if(enemyCooldown==0 && enemiesToClear>0) {
 			enemy = new Enemy(this,sarrera);
-			enemyCooldown = 560;
+			enemyCooldown = 300;
 			enemy.sortu();
 			enemies.add(enemy);
 		}
@@ -209,6 +204,7 @@ public class Pantaila extends JPanel implements Runnable{
 				if(balak.get(i).getX() < enemies.get(j).getX() + enemies.get(j).getZabalera() && balak.get(i).getX() + balak.get(i).getZabalera() > enemies.get(j).getX() && balak.get(i).getY() < enemies.get(j).getY() + enemies.get(i).getAltuera() && balak.get(i).getAltuera() + balak.get(i).getY() > enemies.get(j).getY()) {
 					enemies.remove(j);
 					balak.remove(i);
+					enemiesToClear--;
 				}
 			}
 		}
