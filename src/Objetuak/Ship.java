@@ -9,12 +9,12 @@ import javax.imageio.ImageIO;
 import APP.Pantaila;
 import APP.Sarrera;
 
-public class Espaziontzi extends Objetua{
+public class Ship extends Object{
 	private Pantaila p;
 	private Sarrera s;
 	private double cooldown;
 	
-	public Espaziontzi(Pantaila p,Sarrera s){
+	public Ship(Pantaila p,Sarrera s){
 		super();
 		this.p = p;
 		this.s = s;

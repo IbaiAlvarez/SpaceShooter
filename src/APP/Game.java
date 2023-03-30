@@ -2,7 +2,7 @@ package APP;
 
 import javax.swing.JFrame;
 
-public class Jokua {
+public class Game {
 	public static void main(String[] args) {
 		
 		JFrame lehioa = new JFrame();

@@ -2,7 +2,7 @@ package Objetuak;
 
 import java.awt.image.BufferedImage;
 
-public class Objetua {
+public class Object {
 	private double x;
 	private double y;
 	private double a;
@@ -12,7 +12,7 @@ public class Objetua {
 	
 	
 	
-	public Objetua(double x, double y, double a, double zabalera, double altuera, BufferedImage irudi) {
+	public Object(double x, double y, double a, double zabalera, double altuera, BufferedImage irudi) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -22,7 +22,7 @@ public class Objetua {
 		this.irudi = irudi;
 	}
 
-	public Objetua() {
+	public Object() {
 		super();
 		this.x=100;
 		this.y=100;

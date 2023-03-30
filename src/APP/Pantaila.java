@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import Objetuak.Bala;
-import Objetuak.Espaziontzi;
-import Objetuak.Objetua;
+import Objetuak.Bullet;
+import Objetuak.Enemy;
+import Objetuak.Ship;
+import Objetuak.Object;
 
 public class Pantaila extends JPanel implements Runnable{
 	
@@ -33,11 +34,14 @@ public class Pantaila extends JPanel implements Runnable{
 	
 	final int FPS =20;
 	Sarrera sarrera = new Sarrera();
-	Objetua obj = new Objetua();
-	Espaziontzi espaziontzi = new Espaziontzi(this, sarrera);
+	Object obj = new Object();
+	Ship espaziontzi = new Ship(this, sarrera);
 	Thread jolastu;
-	Bala bala;
-	ArrayList<Bala> balak = new ArrayList<>();
+	Bullet bala;
+	Enemy enemy;
+	ArrayList<Bullet> balak = new ArrayList<>();
+	ArrayList<Enemy> enemies = new ArrayList<>();
+	int enemyCooldown = 0;
 
 	public Pantaila(){
 		this.setPreferredSize(new Dimension(pantailaAltuera, pantailaZabalera));
@@ -50,9 +54,15 @@ public class Pantaila extends JPanel implements Runnable{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics g2 = (Graphics) g;		
+		//Ship Repaint
 		g2.drawImage(espaziontzi.getIrudi(),(int) Math.round(espaziontzi.getX()),(int) Math.round(espaziontzi.getY()), (int) Math.round(espaziontzi.getAltuera()), (int) Math.round(espaziontzi.getZabalera()), null);
+		//Bullet Repaint
 		for(int i=0;i<balak.size();i++) {
 			g2.drawImage(balak.get(i).getIrudi(),(int) Math.round(balak.get(i).getX()),(int) Math.round(balak.get(i).getY()), (int) Math.round(balak.get(i).getAltuera()), (int) Math.round(balak.get(i).getZabalera()), null);
+		}
+		//Enemy Repaint
+		for(int i=0;i<enemies.size();i++) {
+			g2.drawImage(enemies.get(i).getIrudi(),(int) Math.round(enemies.get(i).getX()),(int) Math.round(enemies.get(i).getY()), (int) Math.round(enemies.get(i).getAltuera()), (int) Math.round(enemies.get(i).getZabalera()), null);
 		}
 		g2.dispose();
 	}
@@ -132,21 +142,34 @@ public class Pantaila extends JPanel implements Runnable{
 			tiroEgin();
 		}
 		
+		createEnemy();
+		
+		//Bullet CoolDown
 		if(espaziontzi.getCooldown()>0) {
 			espaziontzi.setCooldown(espaziontzi.getCooldown()-1);
 		}
 		
+		//Enemy CoolDown
+		if(enemyCooldown>0) {
+			enemyCooldown-=1;
+		}
+		
+		//Bullet movement
 		for(int i=0;i<balak.size();i++) {
 			balak.get(i).setX(balak.get(i).getX()+balak.get(i).getA());
 		}
 		
+		//Enemy Movement
+		for(int i=0;i<enemies.size();i++) {
+			enemies.get(i).setX(enemies.get(i).getX()-enemies.get(i).getA());
+		}
 		removeBala();
 	}	
 	
 	
 	public void tiroEgin() {
 		if(espaziontzi.getCooldown()==0) {
-			bala = new Bala(this,sarrera);
+			bala = new Bullet(this,sarrera);
 			espaziontzi.setCooldown(120);
 			bala.sortu(espaziontzi);
 			balak.add(bala);
@@ -161,4 +184,12 @@ public class Pantaila extends JPanel implements Runnable{
 		}
 	}
 	
+	public void createEnemy() {
+		if(enemyCooldown==0) {
+			enemy = new Enemy(this,sarrera);
+			enemyCooldown = 160;
+			enemy.sortu();
+			enemies.add(enemy);
+		}
+	}
 }

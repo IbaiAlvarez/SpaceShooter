@@ -9,13 +9,13 @@ import javax.imageio.ImageIO;
 import APP.Pantaila;
 import APP.Sarrera;
 
-public class Bala extends Objetua{	
+public class Bullet extends Object{	
 
 	private Pantaila p;
 	private Sarrera s;
 	private double indarra;
 	
-	public Bala(Pantaila p,Sarrera s) {
+	public Bullet(Pantaila p,Sarrera s) {
 		this.p = p;
 		this.s = s;
 	}
@@ -41,7 +41,7 @@ public class Bala extends Objetua{
 		this.indarra = indarra;
 	}
 	
-	public void sortu(Espaziontzi espaziontzi) {
+	public void sortu(Ship espaziontzi) {
 		super.setX(espaziontzi.getX()+espaziontzi.getZabalera());
 		super.setY(espaziontzi.getY()+12);		
 		super.setA(2);
