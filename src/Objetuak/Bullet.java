@@ -47,7 +47,7 @@ public class Bullet extends Object{
 		super.setA(2);
 		
 		try { 
-			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/Eclipse/Jokua/bala.png"))); 
+			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/in1dm3/Desktop/space/SpaceShooter/src/res/bala.png"))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

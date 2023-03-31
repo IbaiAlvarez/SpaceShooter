@@ -13,6 +13,7 @@ public class Ship extends Object{
 	private Pantaila p;
 	private Sarrera s;
 	private double cooldown;
+	private double dmg;
 	
 	public Ship(Pantaila p,Sarrera s){
 		super();
@@ -30,6 +31,9 @@ public class Ship extends Object{
 	public double getCooldown() {
 		return cooldown;
 	}
+	public double getDmg() {
+		return dmg;
+	}
 
 	//Setters
 	public void setP(Pantaila p) {
@@ -40,15 +44,19 @@ public class Ship extends Object{
 	}
 	public void setCooldown(double cooldown) {
 		this.cooldown = cooldown;
+	}	
+	public void setDmg(double dmg) {
+		this.dmg = dmg;
 	}
-	
+
 	public void sortu() {
 		super.setX(100);
 		super.setY(100);		
 		super.setA(1);
+		this.setDmg(1);
 		
 		try { 
-			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/Eclipse/Jokua/espaziontzi.png"))); 
+			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/in1dm3/Desktop/space/SpaceShooter/src/res/espaziontzi.png"))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

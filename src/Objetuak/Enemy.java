@@ -13,6 +13,7 @@ public class Enemy extends Object{
 	private Pantaila p;
 	private Sarrera s;
 	private double cooldown;
+	private double hp;
 	
 	public Enemy(Pantaila p,Sarrera s){
 		super();
@@ -30,6 +31,9 @@ public class Enemy extends Object{
 	public double getCooldown() {
 		return cooldown;
 	}
+	public double getHp() {
+		return hp;
+	}
 
 	//Setters
 	public void setP(Pantaila p) {
@@ -41,13 +45,17 @@ public class Enemy extends Object{
 	public void setCooldown(double cooldown) {
 		this.cooldown = cooldown;
 	}
-	
+	public void setHp(double hp) {
+		this.hp = hp;
+	}
+
 	public void sortu() {
 		super.setX(540);
 		super.setY(ThreadLocalRandom.current().nextInt(0, 335 + 1));		
 		super.setA(0.75);
+		this.setHp(1);
 		try { 
-			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/Eclipse/Jokua/wasp.png"))); 
+			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/in1dm3/Desktop/space/SpaceShooter/src/res/enemigo.png"))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

@@ -34,10 +34,15 @@ public class Pantaila extends JPanel implements Runnable{
 	Thread jolastu;
 	Bullet bala;
 	Enemy enemy;
+	//Create Objects
 	ArrayList<Bullet> balak = new ArrayList<>();
 	ArrayList<Enemy> enemies = new ArrayList<>();
+	//Remove Objects
+	ArrayList<Bullet> balakRemove = new ArrayList<>();
+	ArrayList<Enemy> enemiesRemove = new ArrayList<>();
 	int enemyCooldown = 0;
 	int enemiesToClear = 25;
+	boolean destroyed = false;
 
 	public Pantaila(){
 		this.setPreferredSize(new Dimension(pantailaAltuera, pantailaZabalera));
@@ -199,14 +204,27 @@ public class Pantaila extends JPanel implements Runnable{
 	}
 	
 	public void calculateCollision() {
-		for(int i=0;i<balak.size();i++) {
-			for(int j=0;j<enemies.size();j++) {
+		for(int i=0;i<balak.size() && !destroyed;i++) {
+			for(int j=0;j<enemies.size() && !destroyed;j++) {
 				if(balak.get(i).getX() < enemies.get(j).getX() + enemies.get(j).getZabalera() && balak.get(i).getX() + balak.get(i).getZabalera() > enemies.get(j).getX() && balak.get(i).getY() < enemies.get(j).getY() + enemies.get(i).getAltuera() && balak.get(i).getAltuera() + balak.get(i).getY() > enemies.get(j).getY()) {
-					enemies.remove(j);
-					balak.remove(i);
-					enemiesToClear--;
+					balakRemove.add(balak.get(i));
+					enemies.get(j).setHp(enemies.get(j).getHp()-espaziontzi.getDmg());
+					if(enemies.get(i).getHp()<=0) {
+						enemiesRemove.add(enemies.get(j));
+						enemiesToClear--;
+					}
 				}
 			}
 		}
+		//Removes bullets from array
+		for(int i=0;i<balakRemove.size();i++) {
+			balak.remove(balakRemove.get(i));
+		}
+		//Removes enemies from array
+		for(int i=0;i<enemiesRemove.size();i++) {
+			enemies.remove(enemiesRemove.get(i));
+		}
+		
+		
 	}
 }
