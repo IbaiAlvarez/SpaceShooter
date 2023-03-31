@@ -34,12 +34,9 @@ public class Pantaila extends JPanel implements Runnable{
 	Thread jolastu;
 	Bullet bala;
 	Enemy enemy;
-	//Create Objects
+	//Create Objects Arrays
 	ArrayList<Bullet> balak = new ArrayList<>();
 	ArrayList<Enemy> enemies = new ArrayList<>();
-	//Remove Objects
-	ArrayList<Bullet> balakRemove = new ArrayList<>();
-	ArrayList<Enemy> enemiesRemove = new ArrayList<>();
 	int enemyCooldown = 0;
 	int enemiesToClear = 25;
 	boolean destroyed = false;
@@ -204,6 +201,10 @@ public class Pantaila extends JPanel implements Runnable{
 	}
 	
 	public void calculateCollision() {
+		//Remove Objects Arrays
+		ArrayList<Bullet> balakRemove = new ArrayList<>();
+		ArrayList<Enemy> enemiesRemove = new ArrayList<>();
+		
 		for(int i=0;i<balak.size() && !destroyed;i++) {
 			for(int j=0;j<enemies.size() && !destroyed;j++) {
 				if(balak.get(i).getX() < enemies.get(j).getX() + enemies.get(j).getZabalera() && balak.get(i).getX() + balak.get(i).getZabalera() > enemies.get(j).getX() && balak.get(i).getY() < enemies.get(j).getY() + enemies.get(i).getAltuera() && balak.get(i).getAltuera() + balak.get(i).getY() > enemies.get(j).getY()) {
