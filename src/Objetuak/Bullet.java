@@ -41,13 +41,14 @@ public class Bullet extends Object{
 		this.indarra = indarra;
 	}
 	
+	//Creates a Bullet
 	public void sortu(Ship espaziontzi) {
 		super.setX(espaziontzi.getX()+espaziontzi.getZabalera());
 		super.setY(espaziontzi.getY()+12);		
 		super.setA(2);
 		
 		try { 
-			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/in1dm3/Desktop/space/SpaceShooter/src/res/bala.png"))); 
+			super.setIrudi(ImageIO.read(new FileInputStream("src/res/bala.png"))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

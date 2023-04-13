@@ -1,0 +1,2 @@
+1#2#1#0.75#src/res/enemigo.png#10#50% Bullet CDR#x2 Bullet DMG
+2#25#2#0.75#src/res/wasp.png#15#50% Bullet CDR#x2 Bullet DMG

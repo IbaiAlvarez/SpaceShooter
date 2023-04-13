@@ -48,7 +48,8 @@ public class Ship extends Object{
 	public void setDmg(double dmg) {
 		this.dmg = dmg;
 	}
-
+	
+	//Creates a Ship
 	public void sortu() {
 		super.setX(100);
 		super.setY(100);		
@@ -56,7 +57,7 @@ public class Ship extends Object{
 		this.setDmg(1);
 		
 		try { 
-			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/in1dm3/Desktop/space/SpaceShooter/src/res/espaziontzi.png"))); 
+			super.setIrudi(ImageIO.read(new FileInputStream("src/res/ship.png"))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

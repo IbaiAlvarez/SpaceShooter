@@ -49,13 +49,14 @@ public class Enemy extends Object{
 		this.hp = hp;
 	}
 
-	public void sortu() {
+	//Creates an Enemy
+	public void sortu(int hp, double speed, String url) {
 		super.setX(540);
 		super.setY(ThreadLocalRandom.current().nextInt(0, 335 + 1));		
-		super.setA(0.75);
-		this.setHp(1);
+		super.setA(speed);
+		this.setHp(hp);
 		try { 
-			super.setIrudi(ImageIO.read(new FileInputStream("C:/Users/in1dm3/Desktop/space/SpaceShooter/src/res/enemigo.png"))); 
+			super.setIrudi(ImageIO.read(new FileInputStream(url))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

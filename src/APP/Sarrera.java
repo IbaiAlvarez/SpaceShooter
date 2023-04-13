@@ -21,6 +21,7 @@ public class Sarrera implements KeyListener
 		if (botoiKodea == KeyEvent.VK_A)  ezker = true;
 		if (botoiKodea == KeyEvent.VK_D)  eskubi = true;
 		if (botoiKodea == KeyEvent.VK_SPACE)  tiro = true;		
+		
 	}
 
 	@Override
@@ -33,5 +34,13 @@ public class Sarrera implements KeyListener
 		if (botoiKodea == KeyEvent.VK_D)  eskubi = false;
 		if (botoiKodea == KeyEvent.VK_SPACE)  tiro = false;
 		
+	}
+	
+	public void resetValues() {
+		gora = false;
+		behera = false;
+		ezker = false;
+		eskubi = false;
+		tiro = false;
 	}
 }
