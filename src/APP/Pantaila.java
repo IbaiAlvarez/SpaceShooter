@@ -148,17 +148,33 @@ public class Pantaila extends JPanel implements Runnable{
 			espaziontzi.setX(espaziontzi.getX()+espaziontzi.getA());
 		}
 		
+		//Shoots bullet
 		if(sarrera.tiro) {
 			methods.tiroEgin(espaziontzi,balak,this,sarrera);
 		}
 		
+		//Calculates Bullet Collision
 		calculateBulletCollision();
+		//Calculates Ship Collision with Enemies
 		calculateShipCollision();
 		
-		//enemyCooldown=methods.createEnemy(enemyCooldown,enemiesToClear,enemies,this,sarrera,lvls,actual_lvl);
 		if(enemiesToClear==0) {
-			System.out.println("Entra");
-			stop=true;
+			stop=true;	
+			repaint();
+			String[] options = {lvls[actual_lvl][6],lvls[actual_lvl][7]};
+			sarrera.resetValues();
+			int selection = -2;
+			selection = JOptionPane.showOptionDialog(null, "Choose Upgrade!","Upgrade", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
+			if(selection == 0){
+				espaziontzi.setCooldown(espaziontzi.getCooldown()/2);
+				nextLvl();
+			}else if(selection == 1){			
+				espaziontzi.setDmg(espaziontzi.getDmg()*2);
+				nextLvl();
+			}else if(selection == -1) {
+				System.exit(0);
+			}
+			
 		}else if(!stop && enemiesToClear!=0) {
 			createEnemy();
 		}	
@@ -168,22 +184,24 @@ public class Pantaila extends JPanel implements Runnable{
 		}
 		
 		//Enemy CoolDown
-		if(enemyCooldown>0) {
+		if(enemyCooldown>0 && !stop) {
 			enemyCooldown-=1;
 		}
 		
-		//Bullet movement
-		for(int i=0;i<balak.size();i++) {
-			balak.get(i).setX(balak.get(i).getX()+balak.get(i).getA());
-		}
-		
-		//Enemy Movement
-		for(int i=0;i<enemies.size();i++) {
-			enemies.get(i).setX(enemies.get(i).getX()-enemies.get(i).getA());
-		}
-		methods.removeBala(balak);
-		if (methods.removeEnemy(enemies)) {
-			play=null;
+		if(!stop) {
+			//Bullet movement
+			for(int i=0;i<balak.size();i++) {
+				balak.get(i).setX(balak.get(i).getX()+balak.get(i).getA());
+			}
+			
+			//Enemy Movement
+			for(int i=0;i<enemies.size();i++) {
+				enemies.get(i).setX(enemies.get(i).getX()-enemies.get(i).getA());
+			}
+			methods.removeBala(balak);
+			if (methods.removeEnemy(enemies)) {
+				play=null;
+			}
 		}
 	}		
 	
@@ -214,35 +232,6 @@ public class Pantaila extends JPanel implements Runnable{
 			enemies.remove(enemiesRemove.get(i));
 			score+= Integer.parseInt(lvls[actual_lvl][5]);
 			
-		}	
-		if(enemiesToClear==0) {
-			enemyCooldown=700;
-			repaint();
-			String[] options = {lvls[actual_lvl][6],lvls[actual_lvl][7]};
-			sarrera.resetValues();
-			int selection = -1;
-			selection = JOptionPane.showOptionDialog(null, "Choose Upgrade!","Upgrade", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
-			if(selection == 0){
-				/*
-				actual_lvl++;
-				enemyCount=0;
-				enemiesToClear=Integer.parseInt(lvls[actual_lvl][1]);
-				espaziontzi.setCooldown(espaziontzi.getCooldown()/2);
-				stop=false;
-				*/
-				nextLvl();
-			}else if(selection == 1){
-				/*
-				actual_lvl++;
-				enemyCount=0;
-				enemiesToClear=Integer.parseInt(lvls[actual_lvl][1]);
-				espaziontzi.setDmg(espaziontzi.getDmg()*2);
-				stop=false;
-				 */
-				nextLvl();
-			}else if(selection == -1) {
-				System.exit(0);
-			}
 		}
 	}
 	
@@ -251,7 +240,6 @@ public class Pantaila extends JPanel implements Runnable{
 		actual_lvl++;
 		enemyCount=0;
 		enemiesToClear=Integer.parseInt(lvls[actual_lvl][1]);
-		espaziontzi.setDmg(espaziontzi.getDmg()*2);
 		stop=false;
 	}
 	
