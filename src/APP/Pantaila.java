@@ -87,10 +87,16 @@ public class Pantaila extends JPanel implements Runnable{
 	
 	@Override
 	public void run() {
+		espaziontzi.sortu();
+		while(play != null) {
+			play();
+		}
+	}
+	
+	public void play() {
 		Double drawInterval = (double) (100000000/FPS);
 		double nextDrawTime = System.nanoTime() + drawInterval;
-		espaziontzi.sortu();
-		while (play != null) 
+		while (!stop) 
 		{		
 			//1) Mugimentua kalkulatu
 			kalkulatu();
@@ -112,6 +118,20 @@ public class Pantaila extends JPanel implements Runnable{
 				e.printStackTrace();
 			}
 		}
+		
+		String[] options = {lvls[actual_lvl][6],lvls[actual_lvl][7]};
+		sarrera.resetValues();
+		int selection = -2;
+		selection = JOptionPane.showOptionDialog(null, "Choose Upgrade!","Upgrade", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
+		if(selection == 0){
+			espaziontzi.setCooldown(espaziontzi.getCooldown()/2);
+			nextLvl();
+		}else if(selection == 1){			
+			espaziontzi.setDmg(espaziontzi.getDmg()*2);
+			nextLvl();
+		}else if(selection == -1) {
+			System.exit(0);
+		}	
 	}
 	
 	public void kalkulatu() {
@@ -159,22 +179,7 @@ public class Pantaila extends JPanel implements Runnable{
 		calculateShipCollision();
 		
 		if(enemiesToClear==0) {
-			stop=true;	
-			repaint();
-			String[] options = {lvls[actual_lvl][6],lvls[actual_lvl][7]};
-			sarrera.resetValues();
-			int selection = -2;
-			selection = JOptionPane.showOptionDialog(null, "Choose Upgrade!","Upgrade", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
-			if(selection == 0){
-				espaziontzi.setCooldown(espaziontzi.getCooldown()/2);
-				nextLvl();
-			}else if(selection == 1){			
-				espaziontzi.setDmg(espaziontzi.getDmg()*2);
-				nextLvl();
-			}else if(selection == -1) {
-				System.exit(0);
-			}
-			
+			stop=true;						
 		}else if(!stop && enemiesToClear!=0) {
 			createEnemy();
 		}	
@@ -230,8 +235,7 @@ public class Pantaila extends JPanel implements Runnable{
 		//Removes enemies from array
 		for(int i=0;i<enemiesRemove.size();i++) {
 			enemies.remove(enemiesRemove.get(i));
-			score+= Integer.parseInt(lvls[actual_lvl][5]);
-			
+			score+= Integer.parseInt(lvls[actual_lvl][5]);			
 		}
 	}
 	
@@ -241,6 +245,7 @@ public class Pantaila extends JPanel implements Runnable{
 		enemyCount=0;
 		enemiesToClear=Integer.parseInt(lvls[actual_lvl][1]);
 		stop=false;
+		
 	}
 	
 	public void calculateShipCollision() {		
